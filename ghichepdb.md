@@ -2,14 +2,22 @@
 
 ###Mục lục:
 [1. Giới thiệu về HA cho DB ](#1)
+
 [2. Giải pháp hỗ trợ sẵn ](#2)
+
 	[2.1 Giới thiệu về Replication ](#2.1)
+	
     [2.2 Các kiểu Replication ](#2.2)
+	
 		[2.2.1 Master - Slave ](#2.2.2)
+		
 		[2.2.2 Master - Master ](#2.2.2)
+		
 [3. Giải pháp ngoài ](#3)
+
 - [3.1 Galera](#3.1)
 - [3.2 DRBD ](#3.2)
+
 [4. Kết luận ](#4)
 
 <a name="1"></a>
