@@ -33,15 +33,20 @@
 
 Có 2 giải pháp chính cho việc HA:
 
-- Giải pháp Native: Giải pháp này được mysql/mariadb hỗ trợ. Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhiệm vụ replicate dữ liệu mục đích của việc này là giúp các server đảm bảo tính nhất quán về dữ liệu với nhau.
-- Giải pháp 3rd party: Cùng với mục đích là để nhất quán dữ liệu với các server với nhau nhưng cơ chế hoạt động và mô hình khác với giải pháp Native.
+- Giải pháp Native: Giải pháp này được mysql/mariadb hỗ trợ.
+	- Master - Slave
+	- Master - Master
 
-**Replication** là tính năng cho phép dữ liệu của (các) máy chủ Master được sao chép/nhân bản trên một hoặc nhiều máy chủ khác (Slave). Mục đích của việc này là để sao lưu dữ liệu ra các máy chủ khác đề phòng máy chủ chính gặp sự cố.
-
-
+- Giải pháp 3rd party: Cùng với mục đích là để nhất quán dữ liệu với các server với nhau nhưng cơ chế hoạt động và mô hình khác với giải pháp Native. Một số kỹ thuật mà tôi đã tìm hiểu là:
+	- Galera
+	- DRBD
 
 <a name="2.1"></a>
 ### 2.1 Giải pháp Native
+
+Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhiệm vụ replication dữ liệu mục đích của việc này là giúp các server đảm bảo tính nhất quán về dữ liệu với nhau.
+
+**Replication** là tính năng cho phép dữ liệu của (các) máy chủ Master được sao chép/nhân bản trên một hoặc nhiều máy chủ khác (Slave). Mục đích của việc này là để sao lưu dữ liệu ra các máy chủ khác đề phòng máy chủ chính gặp sự cố.
 
 <a name="2.1.1"></a>
 #### 2.1.1 Master - Slave
