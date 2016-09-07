@@ -9,8 +9,9 @@
 	
 - [2.2 Các kiểu Replication ](#2.2)
 	
--- [2.2.1 Master - Slave ](#2.2.2)
--- [2.2.2 Master - Master ](#2.2.2)
+	[2.2.1 Master - Slave ](#2.2.2)	
+	
+	[2.2.2 Master - Master ](#2.2.2)
 		
 [3. Giải pháp ngoài ](#3)
 
