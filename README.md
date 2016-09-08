@@ -60,7 +60,7 @@ Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhi�
 #### 2.1.1 Master - Slave
 **Master - Slave**: là một kiểu trong giải pháp HA cho DB, mục đích để đồng bộ dữ liệu của DB chính (Master) sang một máy chủ DB khác gọi là Slave một cách tự động.
 
-<img src="http://image.prntscr.com/image/9a740938930d4670bd0687a268b4f7f9.png" />
+<img src="http://image.prntscr.com/image/ed80280eeb574436862c18bcb8c6b9be.png" />
 <a name="2.1.2"></a>
 #### 2.1.2 Master - Master
 
@@ -82,6 +82,7 @@ Cluster có 2 mode hoạt động là **Active - Passive** và **Active - Active
 - **Active - Passive**: Tất cả các thao tác ghi sẽ được thực hiện ở máy chủ Active, sau đó sẽ được sao chép sang các máy chủ Passive. Các máy chủ Passive này sẽ sẵn sàng đảm nhiệm vai trò của máy chủ Active khi xảy ra sự cố. Trong một vài trường hợp, **Active - Passive** cho phép `SELECT` ở các máy chủ Passive.
 - **Active - Active**: Thao tác đọc - ghi dữ liệu sẽ diễn ra ở mỗi node. Khi có thay đổi, dữ liệu sẽ được đồng bộ tới tất cả các node
 
+<<<<<<< HEAD
 <a name="2.2.2"></a>
 ### 2.2.2 DRBD (Distributed Replicated Block Device)
 
@@ -130,3 +131,7 @@ Giống với Galera, Percona có ít nhất 3 node luôn đồng bộ dữ li�
 ### 3. Kết luận
 
 Nâng cao khả năng hoạt động cho cơ sở dữ liệu là điều vô cùng quan trọng, nó giúp các ứng dụng sử dụng DB của bạn hoạt động nhịp nhàng, trơn tru hơn. Trên đây là một vài giải pháp nâng cao hiệu năng hoạt động của DB. Dựa vào điều kiện thực tế mà có thể lựa chọn giải pháp phù hợp với mô hình của mình.
+=======
+<a name="2.2,2"></a>
+### 2.2.2 DRBD (Distributed Replicated Block Device)
+>>>>>>> origin/master
