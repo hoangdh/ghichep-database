@@ -60,7 +60,7 @@ Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhi�
 #### 2.1.1 Master - Slave
 **Master - Slave**: là một kiểu trong giải pháp HA cho DB, mục đích để đồng bộ dữ liệu của DB chính (Master) sang một máy chủ DB khác gọi là Slave một cách tự động.
 
-<img src="http://image.prntscr.com/image/9a740938930d4670bd0687a268b4f7f9.png" />
+<img src="http://image.prntscr.com/image/0d9a0a557ae14f3e8677aae42816227c.png" />
 <a name="2.1.2"></a>
 #### 2.1.2 Master - Master
 
