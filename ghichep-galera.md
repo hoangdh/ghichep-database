@@ -1,3 +1,17 @@
+
+# Chuẩn bị
+
+```
+3 Node:
+RAM >= 1GB
+IP:
+Node 1: 192.168.100.192
+Node 2: 192.168.100.193
+Node 3: 192.168.100.194
+```
+
+# Các bước tiến hành
+
 ## Bước 1: Thêm repo cho các máy chủ
 
 ```
@@ -101,7 +115,7 @@ Trên node 2:
 
 Trên node 3:
 
-<img src="" />
+<img src="http://image.prntscr.com/image/06e10f66eeae4c22af80025db14efaf3.png" />
 
 ## Bước 5: Cấu hình Firewall trên các máy chủ
 
@@ -114,9 +128,14 @@ Trên node 3:
 
 ```
 ufw enable
-ufw allow 3306,4567,4568,4444/tcp
+ufw allow 22,3306,4567,4568,4444/tcp
 ufw allow 4567/udp
 ```
+
+<img src="http://image.prntscr.com/image/6a7d3e8dfaed4313affff30e889aaaa7.png" />
+
+Khi bật Firewall, hệ thống sẽ hỏi có giữ lại phiên SSH hiện tại. Chúng ta chọn `Y` và tiếp tục cấu hình các bước tiếp theo. Câu lệnh `ufw status` có trong hình để xem lại trạng thái của Firewall.
+
 
 ## Bước 6: Khởi động Cluster
 
@@ -126,7 +145,7 @@ ufw allow 4567/udp
 systemctl stop mysql
 ```
 
-### Chạy dịch vụ ở node đầu tiên
+### Chạy dịch vụ ở node 1
 
 ```
 /etc/init.d/mysql start --wsrep-new-cluster
@@ -148,7 +167,9 @@ Kết quả hiện ra
 +--------------------+-------+
 ```
 
-### Chạy dịch vụ ở thứ 2
+<img src="http://image.prntscr.com/image/5bc9923e69b04e7890bb864b68334368.png" />
+
+### Chạy dịch vụ ở node 2
 
 ```
 systemctl start mysql
@@ -170,7 +191,9 @@ Kết quả hiện ra
 +--------------------+-------+
 ```
 
-### Chạy dịch vụ ở thứ 3
+<img src="http://image.prntscr.com/image/d17a3cd2781d413fb81e38473732cbdd.png" />
+
+### Chạy dịch vụ ở node 3
 
 ```
 systemctl start mysql
@@ -191,6 +214,8 @@ Kết quả hiện ra
 | wsrep_cluster_size | 3     |
 +--------------------+-------+
 ```
+
+<img src="http://image.prntscr.com/image/d0e2750174184034beccc834cc3d4301.png" />
 
 ## Bước 7: Cấu hình Debian Maintenance User
 
@@ -222,6 +247,8 @@ Thử đăng nhập vào mysql:
 mysql -u debian-sys-maint -p
 ```
 
+<img src="http://image.prntscr.com/image/01a555d17cbb4f44a0158942748477a3.png" />
+
 Nếu không được, hãy đăng nhập vào bằng `root` và chỉnh sửa lại password cho nó.
 
 ```
@@ -232,7 +259,7 @@ update mysql.user set password=PASSWORD('password_from_debian.cnf') where User='
 
 ## Bước 8: Test
 
-### Ghi dữ liệu vào Node đầu tiên
+### Ghi dữ liệu vào Node 1
 
 ```
 mysql -u root -p -e 'CREATE DATABASE playground;
@@ -240,7 +267,9 @@ CREATE TABLE playground.equipment ( id INT NOT NULL AUTO_INCREMENT, type VARCHAR
 INSERT INTO playground.equipment (type, quant, color) VALUES ("slide", 2, "blue");'
 ```
 
-### Đọc và ghi dữ liệu vào Node 25
+<img src="http://image.prntscr.com/image/c76db32eade74e9f816ead8a91b0464e.png" />
+
+### Đọc và ghi dữ liệu vào Node 2
 
 ```
 mysql -u root -p -e 'SELECT * FROM playground.equipment;'
@@ -248,19 +277,15 @@ mysql -u root -p -e 'SELECT * FROM playground.equipment;'
 
 Kết quả:
 
-```
-+----+-------+-------+-------+
-| id | type  | quant | color |
-+----+-------+-------+-------+
-|  1 | slide |     2 | blue  |
-+----+-------+-------+-------+
-```
+<img src="http://image.prntscr.com/image/0c11bfa00c7047b1a92aef8501366c68.png" />
 
 Ghi dữ liệu: 
 
 ```
 mysql -u root -p -e 'INSERT INTO playground.equipment (type, quant, color) VALUES ("swing", 10, "yellow");'
 ```
+
+<img src="http://image.prntscr.com/image/47c10496cef746b9af883db06499d09b.png" />
 
 ### Đọc và ghi dữ liệu trên Node 3
 
@@ -270,14 +295,7 @@ mysql -u root -p -e 'SELECT * FROM playground.equipment;'
 
 Kết quả:
 
-```
-  +----+-------+-------+--------+
-  | id | type  | quant | color  |
-  +----+-------+-------+--------+
-  |  1 | slide |     2 | blue   |
-  |  2 | swing |    10 | yellow |
-  +----+-------+-------+--------+
-```
+<img src="http://image.prntscr.com/image/d3c60c1bce244a5aaaf607f2ad582938.png" />
 
 Ghi dữ liệu
 
@@ -285,7 +303,9 @@ Ghi dữ liệu
 mysql -u root -p -e 'INSERT INTO playground.equipment (type, quant, color) VALUES ("seesaw", 3, "green");'
 ```
 
-### Đọc dữ liệu trên Node 10
+<img src="http://image.prntscr.com/image/a65fa2caf1f54a39a112a679253b3ff9.png" />
+
+### Đọc dữ liệu trên Node 1
 
 ```
 mysql -u root -p -e 'SELECT * FROM playground.equipment;'
@@ -293,12 +313,4 @@ mysql -u root -p -e 'SELECT * FROM playground.equipment;'
 
 Kết quả:
 
-```
-  +----+--------+-------+--------+
-  | id | type   | quant | color  |
-  +----+--------+-------+--------+
-  |  1 | slide  |     2 | blue   |
-  |  2 | swing  |    10 | yellow |
-  |  3 | seesaw |     3 | green  |
-  +----+--------+-------+--------+
-```
+<img src="http://image.prntscr.com/image/7d893aa53ee347758e059fc6c2e2705f.png" />
