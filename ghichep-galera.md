@@ -12,9 +12,13 @@ apt-get install galera-3 galera-arbitrator-3 mysql-wsrep-5.6
 apt-get install rsync
 ```
 
+Trong khi cài đặt mysql có yêu cầu nhập password cho `root` - quản lý MySQL
+
+<img src="http://image.prntscr.com/image/358e882a5f094eb09f705301231252db.png" />
+
 **Note:** `rsync` là thành phần thiết yếu của Galera.
 
-## Bước 3: Cấu hình ở máy chủ thứ 1
+## Bước 3: Cấu hình ở máy chủ thứ nhất
 
 Tạo một file có tên `galera.cnf` trong thư mục `/etc/mysql/conf.d` với nội dung
 
@@ -53,19 +57,15 @@ Note:
 - Điền địa chỉ IP của node đang cấu hình vào trường `this_node_ip`
 - Điền tên của node vào `this_node_name` (Tên tùy chọn, phục vụ cho việc Debug)
 
+<img src="http://image.prntscr.com/image/efc3ed97bf7348ac91b5149a83103449.png" />
+
 **Tiếp theo**, vào file `my.cnf` và comment out lại dòng `bind-address`
 
 ```
 vi /etc/mysql/my.cnf
 ```
 
-```
-. . .
-# Instead of skip-networking the default is now to listen only on
-# localhost which is more compatible and is not less secure.
-# bind-address          = 127.0.0.1
-. . .
-```
+<img src="http://image.prntscr.com/image/ce3f53cc95d34bbebc4de3dfe9daf7e1.png" />
 
 ## Bước 4: Cấu hình trên các node còn lại
 
@@ -81,19 +81,27 @@ wsrep_node_name="this_node_name"
 
 Thay thế `this_node_ip` và `this_node_name` ở file `galera.cnf`
 
+Trên node 2:
+
+<img src="http://image.prntscr.com/image/238b7c8331a744da88fa829e877ee4f5.png" />
+
+Trên node 3:
+
+<img src="http://image.prntscr.com/image/06ef8065a2d046a1a51bb6b83d9370e5.png" />
+
 Cũng như ở node 1, trên các node còn lại, chúng ta vào `my.cnf` và command out dòng `bind-address`
 
 ```
 vi /etc/mysql/my.cnf
 ```
 
-```
-. . .
-# Instead of skip-networking the default is now to listen only on
-# localhost which is more compatible and is not less secure.
-# bind-address          = 127.0.0.1
-. . .
-```
+Trên node 2:
+
+<img src="http://image.prntscr.com/image/b3cdda5a7aea49409f20668a2e98a8c3.png" />
+
+Trên node 3:
+
+<img src="" />
 
 ## Bước 5: Cấu hình Firewall trên các máy chủ
 
