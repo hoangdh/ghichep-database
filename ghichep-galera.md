@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ghi chép cài đặt Galera Cluster
 
 ### Menu
@@ -20,6 +21,9 @@
 
 <a name="1"></a>
 ## 1. Giới thiệu Galera
+=======
+## Giới thiệu Galera
+>>>>>>> origin/master
 
 **Galera Cluster** là giải pháp tăng tính sẵn sàng cho cách Database bằng các phân phối các thay đổi (đọc - ghi dữ liệu) tới các máy chủ trong Cluster. Trong trường hợp một máy chủ bị lỗi thì các máy chủ khác vẫn sẵn sàng hoạt động phục vụ các yêu cầu từ phía người dùng.
 
@@ -32,11 +36,17 @@ Cluster có 2 mode hoạt động là **Active - Passive** và **Active - Active
 
 Bài hướng dẫn dưới đây tôi sẽ cấu hình cho nó hoạt động ở mode **Active - Active**.
 
+<<<<<<< HEAD
 <a name="2"></a>
 ## 2. Chuẩn bị
 
 <a name="2.1"></a>
 ### 2.1. Môi trường cài đặt
+=======
+## Chuẩn bị
+
+### Môi trường cài đặt
+>>>>>>> origin/master
 
 ```
 root@node3:~# lsb_release -a
@@ -48,10 +58,15 @@ Codename:       xenial
 root@node3:~# uname -a
 Linux node3.hoang.lab 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 ```
+<<<<<<< HEAD
 
 <a name="2.2"></a>
 ### 2.2. Thiết lập IP cho các node
 
+=======
+### Thiết lập IP cho các node
+
+>>>>>>> origin/master
 ```
 IP:
 Node 1: 192.168.100.192
@@ -61,15 +76,24 @@ Node 3: 192.168.100.194
 GATEWAY: 192.168.100.1
 ```
 
+<<<<<<< HEAD
 <a name="2.3"></a>
 ### 2.3. Mô hình
+=======
+### Mô hình
+>>>>>>> origin/master
 
 <img width=75% src="http://image.prntscr.com/image/17b32d1639c447ac92e115524185d123.png" />
 
+<<<<<<< HEAD
 <a name="3"></a>
 ## 3. Các bước tiến hành
 
 <a name="3.1"></a>
+=======
+## Các bước tiến hành
+
+>>>>>>> origin/master
 ### Bước 1: Thêm repo cho các máy chủ
 
 ```
@@ -77,8 +101,11 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv  44B7345738EBDE52594DAD80D66
 add-apt-repository 'deb [arch=amd64,i386] http://releases.galeracluster.com/ubuntu/ xenial main'
 apt-get update
 ```
+<<<<<<< HEAD
 
 <a name="3.2"></a>
+=======
+>>>>>>> origin/master
 ### Bước 2: Cài đặt MySQL và Galera trên các máy chủ
 
 ```
@@ -92,7 +119,10 @@ Trong khi cài đặt mysql có yêu cầu nhập password cho `root` - quản l
 
 **Note:** `rsync` là thành phần thiết yếu của Galera.
 
+<<<<<<< HEAD
 <a name="3.3"></a>
+=======
+>>>>>>> origin/master
 ### Bước 3: Cấu hình ở máy chủ thứ nhất
 
 Tạo một file có tên `galera.cnf` trong thư mục `/etc/mysql/conf.d` với nội dung
@@ -142,7 +172,10 @@ vi /etc/mysql/my.cnf
 
 <img src="http://image.prntscr.com/image/ce3f53cc95d34bbebc4de3dfe9daf7e1.png" />
 
+<<<<<<< HEAD
 <a name="3.4"></a>
+=======
+>>>>>>> origin/master
 ### Bước 4: Cấu hình trên các node còn lại
 
 Ở các node còn lại, chúng ta copy file `galera.cnf`  ở node thứ nhất vào thư mục `/etc/mysql/conf.d/` của 2 node còn lại. Chỉnh sửa nội dung cho phù hợp với node. Cụ thể
@@ -179,7 +212,10 @@ Trên node 3:
 
 <img src="http://image.prntscr.com/image/06e10f66eeae4c22af80025db14efaf3.png" />
 
+<<<<<<< HEAD
 <a name="3.5"></a>
+=======
+>>>>>>> origin/master
 ### Bước 5: Cấu hình Firewall trên các máy chủ
 
 `Galera` sử dụng 4 port để làm việc
@@ -202,6 +238,11 @@ Khi bật Firewall, hệ thống sẽ hỏi có giữ lại phiên SSH hiện t�
 <a name="3.6"></a>
 ### Bước 6: Khởi động Cluster
 
+<<<<<<< HEAD
+=======
+### Bước 6: Khởi động Cluster
+
+>>>>>>> origin/master
 #### Stop dịch vụ mysql trên tất cả các node
 
 ```
@@ -280,7 +321,10 @@ Kết quả hiện ra
 
 <img src="http://image.prntscr.com/image/d0e2750174184034beccc834cc3d4301.png" />
 
+<<<<<<< HEAD
 <a name="3.7"></a>
+=======
+>>>>>>> origin/master
 ### Bước 7: Cấu hình Debian Maintenance User
 
 Hiện tại, trên Ubuntu và Các máy chủ mysql của Debian sẽ có một user đặc biệt để thực hiện các quá trình trong Galera. Mặc định, khi cài đặt sẽ có một user được tạo ra và được ghi ở `/etc/mysql/debian.cnf` trên mỗi server.
@@ -321,7 +365,10 @@ update mysql.user set password=PASSWORD('password_from_debian.cnf') where User='
 
 **Note:** Thay thế `password_from_debian.cnf` bằng chuỗi trong password trong file `debian.cnf`
 
+<<<<<<< HEAD
 <a name="3.8"></a>
+=======
+>>>>>>> origin/master
 ### Bước 8: Test
 
 #### Ghi dữ liệu vào Node 1
@@ -380,7 +427,13 @@ Kết quả:
 
 <img src="http://image.prntscr.com/image/7d893aa53ee347758e059fc6c2e2705f.png" />
 
+<<<<<<< HEAD
 <a name="4"></a>
 ## 4. Kết luận
 
 Trên đây là hướng dẫn cấu hình Galera với mô hình hoạt động là **Active - Active** trên hệ điều hành Ubuntu 16.  Hy vọng có thể giúp ích cho hệ thống của các bạn.  Chúc các bạn thành công!
+=======
+## Kết luận
+
+Trên đây là hướng dẫn cấu hình Galera với mô hình hoạt động là **Active - Active** trên hệ điều hành Ubuntu 16.  Hy vọng có thể giúp ích cho hệ thống của các bạn.  Chúc các bạn thành công!
+>>>>>>> origin/master
