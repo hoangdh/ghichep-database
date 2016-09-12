@@ -2,33 +2,33 @@
 
 ### Menu
 
-[1. Giới thiệu về Galera ](#1)
+[1. Giới thiệu về Galera](#1)
 
 [2. Chuẩn bị ](#2)
 
-	[2.1 Chuẩn bị ](#2.1)
+	[2.1 Chuẩn bị](#2.1)
 	
-	[2.2 Thiết lập IP cho các node ](#2.2)
+	[2.2 Thiết lập IP cho các node](#2.2)
 	
-	[2.3 Mô hình ](#2.3)
+	[2.3 Mô hình](#2.3)
 	
-[3. Các bước tiến hành ](#3)
+[3. Các bước tiến hành](#3)
 
-	[Bước 1. Thêm repo cho các máy chủ ](#3.1)
+	[Bước 1. Thêm repo cho các máy chủ](#3.1)
 	
-	[Bước 2. Cài đặt MySQL và Galera trên các máy chủ  ](#3.2)
+	[Bước 2. Cài đặt MySQL và Galera trên các máy chủ](#3.2)
 	
-	[Bước 3. Cấu hình ở máy chủ thứ nhất ](#3.3)
+	[Bước 3. Cấu hình ở máy chủ thứ nhất](#3.3)
 	
-	[Bước 4. Cấu hình trên các node còn lại ](#3.4)
+	[Bước 4. Cấu hình trên các node còn lại](#3.4)
 	
-	[Bước 5. Cấu hình Firewall trên các máy chủ ](#3.5)
+	[Bước 5. Cấu hình Firewall trên các máy chủ](#3.5)
 	
 	[Bước 6. Khởi động Cluster](#3.6)
 	
 	[Bước 7. Cấu hình Debian Maintenance User](#3.7)
 	
-	[Bước 8. Kiểm tra hoạt động  ](#3.8)
+	[Bước 8. Kiểm tra hoạt động](#3.8)
 	
 [4. Kết luận](#4)
 
