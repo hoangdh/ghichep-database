@@ -22,24 +22,24 @@
 <a name="1.1"></a>
 ### 1.1. Môi trường cài đặt
 
-```
-[root@node1 ~]# cat /etc/redhat-release
-CentOS Linux release 7.2.1511 (Core)
-[root@node1 ~]# uname -a
-Linux node1.hoang.lab 3.10.0-327.28.3.el7.x86_64 #1 SMP Thu Aug 18 19:05:49 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-```
+    ```
+    [root@node1 ~]# cat /etc/redhat-release
+    CentOS Linux release 7.2.1511 (Core)
+    [root@node1 ~]# uname -a
+    Linux node1.hoang.lab 3.10.0-327.28.3.el7.x86_64 #1 SMP Thu Aug 18 19:05:49 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+    ```
 
 <a name="1.2"></a>
 ### 1.2. Thiết lập IP cho các node
 
-```
-IP:
-Node 1: 192.168.100.196
-Node 2: 192.168.100.197
-Node 3: 192.168.100.198
+    ```
+    IP:
+    Node 1: 192.168.100.196
+    Node 2: 192.168.100.197
+    Node 3: 192.168.100.198
 
-GATEWAY: 192.168.100.1
-```
+    GATEWAY: 192.168.100.1
+    ```
 
 <a name="1.3"></a>
 ### 1.3. Mô hình
@@ -54,11 +54,11 @@ GATEWAY: 192.168.100.1
 
 #### Cài đặt Repo cho các node và set độ ưu tiên của repo
 
-```
-yum -y install centos-release-scl-rh centos-release-scl
-sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
-sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo 
-```
+    ```
+    yum -y install centos-release-scl-rh centos-release-scl
+    sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
+    sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo 
+    ```
 
 #### Cài đặt MariaDB
 
@@ -80,7 +80,7 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
         mysql -V 
         ```
 
-    <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
+        <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
 
     - Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
 
@@ -126,11 +126,11 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
         mysql_secure_installation 
         ```
 
-        <img src="http://image.prntscr.com/image/97e7126a0d2c428ba44bab3754c4b2d2.png" />
+<img src="http://image.prntscr.com/image/97e7126a0d2c428ba44bab3754c4b2d2.png" />
 
     - Cài đặt tiếp theo
 
-        <img src="http://image.prntscr.com/image/8a24214987164f4ca8712c6c49714680.png" />
+<img src="http://image.prntscr.com/image/8a24214987164f4ca8712c6c49714680.png" />
 
 - Kiểm tra Đăng nhập `MariaDB`
 
@@ -138,7 +138,7 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
     mysql -uroot -p -e "show databases;"
     ```
 
-    <img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
+<img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
 
 <a name="2.2"></a>
 #### 2.2 Cài đặt Galera cho MariaDB
@@ -184,7 +184,7 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     wsrep_sst_method=rsync
     ```
 
-    <img src="http://image.prntscr.com/image/5517d3701a89412ab6f13c57e6342f5a.png" />
+<img src="http://image.prntscr.com/image/5517d3701a89412ab6f13c57e6342f5a.png" />
 
     - Sau khi chỉnh sửa xong, khởi động `Galera`
 
@@ -221,11 +221,11 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
 
 #### Trên node 2:
 
-    <img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
+<img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
 
 #### Trên node 3:
 
-    <img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
+<img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
 
     - Khởi động lại `MariaDB` trên từng node:
 
@@ -243,7 +243,7 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     mysql -uroot -p -e "show databases;"
     ```
 
-    <img src="http://image.prntscr.com/image/3b57ce5034ab4d3a896804f79e85cf58.png" />
+<img src="http://image.prntscr.com/image/3b57ce5034ab4d3a896804f79e85cf58.png" />
 
 - Xem và tạo database ở node 2:
 
@@ -254,7 +254,7 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     create database node2;
     ```
 
-    <img src="http://image.prntscr.com/image/e7085303a51e4218bf7da12b70270013.png" />
+<img src="http://image.prntscr.com/image/e7085303a51e4218bf7da12b70270013.png" />
 
 - Xem và tạo database ở node 3:
 
@@ -265,7 +265,7 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     create database node3;
     ```
 
-    <img src="http://image.prntscr.com/image/aefac42a78874b43a45bf2d17957ea3d.png" />
+<img src="http://image.prntscr.com/image/aefac42a78874b43a45bf2d17957ea3d.png" />
 
 - Quay lại node 1, chúng ta kiểm tra lại sẽ có 3 database được tạo:
 
@@ -273,7 +273,7 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     mysql -uroot -p -e "show databases;"
     ```
 
-    <img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
+<img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
 
 <a name="3"></a>
 3. Tham khảo:
