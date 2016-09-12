@@ -69,7 +69,7 @@ GATEWAY: 192.168.100.1
 <a name="2.3"></a>
 ### 2.3. Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/17b32d1639c447ac92e115524185d123.png" />
+<img width=75% src="http://image.prntscr.com/image/0b80efe53ab540298fc6260ebd408c4d.png" />
 
 <a name="3"></a>
 ## 3. Các bước tiến hành

@@ -1,6 +1,6 @@
 ## Hướng dẫn cài đặt Galera cho MariaDB trên CentOS 7
 
-Menu
+#### Menu
 
 [1. Chuẩn bị ](#1)
 
@@ -43,7 +43,7 @@ GATEWAY: 192.168.100.1
 <a name="1.3"></a>
 ### 1.3. Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/c0c7c084fed04fda9802c8b45942c51b.png" />
+<img width=75% src="http://image.prntscr.com/image/3838b65e179f4f9ebc47385b3185a5e0.png" />
 
 <a name="2"></a>
 ## 2. Các bước tiến hành
