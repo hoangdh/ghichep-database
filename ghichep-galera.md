@@ -15,12 +15,18 @@ Bài hướng dẫn dưới đây tôi sẽ cấu hình cho nó hoạt động �
 
 ```
 3 Node:
+OS: Ubuntu 14.04
 RAM >= 1GB
+
 IP:
 Node 1: 192.168.100.192
 Node 2: 192.168.100.193
 Node 3: 192.168.100.194
 ```
+
+## Mô hình
+
+<img width=75% src="http://image.prntscr.com/image/a4010ac33b6b491299cc5896798dbc83.png" />
 
 # Các bước tiến hành
 
@@ -115,7 +121,7 @@ Trên node 3:
 
 <img src="http://image.prntscr.com/image/06ef8065a2d046a1a51bb6b83d9370e5.png" />
 
-Cũng như ở node 1, trên các node còn lại, chúng ta vào `my.cnf` và command out dòng `bind-address`
+Cũng như ở node 1, trên các node còn lại, chúng ta vào `my.cnf` và comment out dòng `bind-address`
 
 ```
 vi /etc/mysql/my.cnf
@@ -233,7 +239,7 @@ Kết quả hiện ra
 
 Hiện tại, trên Ubuntu và Các máy chủ mysql của Debian sẽ có một user đặc biệt để thực hiện các quá trình trong Galera. Mặc định, khi cài đặt sẽ có một user được tạo ra và được ghi ở `/etc/mysql/debian.cnf` trên mỗi server.
 
-### Copy file từ máy chủ thứ nhất ra các máy chủ còn lại
+### Copy file từ máy chủ thứ nhất (node 1) ra các máy chủ còn lại
 
 Bước này khá đơn giản, chúng ta copy file `debian.cnf` từ server thứ nhất sang các server khác
 
