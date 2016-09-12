@@ -26,7 +26,7 @@ Node 3: 192.168.100.194
 
 ## Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/a4010ac33b6b491299cc5896798dbc83.png" />
+<img width=75% src="http://image.prntscr.com/image/bfa2f6e99d884aa9b202d0de589f29ca.png" />
 
 # Các bước tiến hành
 
