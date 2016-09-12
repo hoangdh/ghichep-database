@@ -61,21 +61,23 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 
 #### Cài đặt MariaDB
 
-```
-yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server 
-```
+- Bước cài đặt repos cho MariaDB
 
-Load các biến môi trường
+	```
+	yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server 
+	```
 
-```
-scl enable rh-mariadb101 bash
-```
+    - Load các biến môi trường
 
-Kiểm tra phiên bản của MariaDB
+        ```
+        scl enable rh-mariadb101 bash
+        ```
 
-```
-mysql -V 
-```
+    - Kiểm tra phiên bản của MariaDB
+
+        ```
+        mysql -V 
+        ```
 
 <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
 
