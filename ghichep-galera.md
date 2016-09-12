@@ -1,4 +1,25 @@
-# Giới thiệu Galera
+# Ghi chép cài đặt Galera Cluster
+
+### Menu
+
+[1. Giới thiệu về Galera ](#1)
+[2. Chuẩn bị ](#2)
+	[2.1 Chuẩn bị ](#2.1)
+	[2.2 Thiết lập IP cho các node ](#2.2)
+	[2.3 Mô hình ](#2.3)
+[3. Các bước tiến hành ](#3)
+	[Bước 1. Thêm repo cho các máy chủ ](#3.1)
+	[Bước 2. Cài đặt MySQL và Galera trên các máy chủ  ](#3.2)
+	[Bước 3. Cấu hình ở máy chủ thứ nhất ](#3.3)
+	[Bước 4. Cấu hình trên các node còn lại ](#3.4)
+	[Bước 5. Cấu hình Firewall trên các máy chủ ](#3.5)
+	[Bước 6. Khởi động Cluster](#3.6)
+	[Bước 7. Cấu hình Debian Maintenance User](#3.7)
+	[Bước 8. Kiểm tra hoạt động  ](#3.8)
+[4. Kết luận](#4)
+
+<a name="1"></a>
+## 1. Giới thiệu Galera
 
 **Galera Cluster** là giải pháp tăng tính sẵn sàng cho cách Database bằng các phân phối các thay đổi (đọc - ghi dữ liệu) tới các máy chủ trong Cluster. Trong trường hợp một máy chủ bị lỗi thì các máy chủ khác vẫn sẵn sàng hoạt động phục vụ các yêu cầu từ phía người dùng.
 
@@ -11,33 +32,54 @@ Cluster có 2 mode hoạt động là **Active - Passive** và **Active - Active
 
 Bài hướng dẫn dưới đây tôi sẽ cấu hình cho nó hoạt động ở mode **Active - Active**.
 
-# Chuẩn bị
+<a name="2"></a>
+## 2. Chuẩn bị
+
+<a name="2.1"></a>
+### 2.1. Môi trường cài đặt
 
 ```
-3 Node:
-OS: Ubuntu 14.04
-RAM >= 1GB
+root@node3:~# lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 16.04.1 LTS
+Release:        16.04
+Codename:       xenial
+root@node3:~# uname -a
+Linux node3.hoang.lab 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
 
+<a name="2.2"></a>
+### 2.2. Thiết lập IP cho các node
+
+```
 IP:
 Node 1: 192.168.100.192
 Node 2: 192.168.100.193
 Node 3: 192.168.100.194
+
+GATEWAY: 192.168.100.1
 ```
 
-## Mô hình
+<a name="2.3"></a>
+### 2.3. Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/bfa2f6e99d884aa9b202d0de589f29ca.png" />
+<img width=75% src="http://image.prntscr.com/image/17b32d1639c447ac92e115524185d123.png" />
 
-# Các bước tiến hành
+<a name="3"></a>
+## 3. Các bước tiến hành
 
-## Bước 1: Thêm repo cho các máy chủ
+<a name="3.1"></a>
+### Bước 1: Thêm repo cho các máy chủ
 
 ```
 apt-key adv --keyserver keyserver.ubuntu.com --recv  44B7345738EBDE52594DAD80D669017EBC19DDBA
 add-apt-repository 'deb [arch=amd64,i386] http://releases.galeracluster.com/ubuntu/ xenial main'
 apt-get update
 ```
-## Bước 2: Cài đặt MySQL và Galera trên các máy chủ
+
+<a name="3.2"></a>
+### Bước 2: Cài đặt MySQL và Galera trên các máy chủ
 
 ```
 apt-get install galera-3 galera-arbitrator-3 mysql-wsrep-5.6
@@ -50,7 +92,8 @@ Trong khi cài đặt mysql có yêu cầu nhập password cho `root` - quản l
 
 **Note:** `rsync` là thành phần thiết yếu của Galera.
 
-## Bước 3: Cấu hình ở máy chủ thứ nhất
+<a name="3.3"></a>
+### Bước 3: Cấu hình ở máy chủ thứ nhất
 
 Tạo một file có tên `galera.cnf` trong thư mục `/etc/mysql/conf.d` với nội dung
 
@@ -99,7 +142,8 @@ vi /etc/mysql/my.cnf
 
 <img src="http://image.prntscr.com/image/ce3f53cc95d34bbebc4de3dfe9daf7e1.png" />
 
-## Bước 4: Cấu hình trên các node còn lại
+<a name="3.4"></a>
+### Bước 4: Cấu hình trên các node còn lại
 
 Ở các node còn lại, chúng ta copy file `galera.cnf`  ở node thứ nhất vào thư mục `/etc/mysql/conf.d/` của 2 node còn lại. Chỉnh sửa nội dung cho phù hợp với node. Cụ thể
 
@@ -135,7 +179,8 @@ Trên node 3:
 
 <img src="http://image.prntscr.com/image/06e10f66eeae4c22af80025db14efaf3.png" />
 
-## Bước 5: Cấu hình Firewall trên các máy chủ
+<a name="3.5"></a>
+### Bước 5: Cấu hình Firewall trên các máy chủ
 
 `Galera` sử dụng 4 port để làm việc
 
@@ -154,16 +199,16 @@ ufw allow 4567/udp
 
 Khi bật Firewall, hệ thống sẽ hỏi có giữ lại phiên SSH hiện tại. Chúng ta chọn `Y` và tiếp tục cấu hình các bước tiếp theo. Câu lệnh `ufw status` có trong hình để xem lại trạng thái của Firewall.
 
+<a name="3.6"></a>
+### Bước 6: Khởi động Cluster
 
-## Bước 6: Khởi động Cluster
-
-### Stop dịch vụ mysql trên tất cả các node
+#### Stop dịch vụ mysql trên tất cả các node
 
 ```
 systemctl stop mysql
 ```
 
-### Chạy dịch vụ ở node 1
+#### Chạy dịch vụ ở node 1
 
 ```
 /etc/init.d/mysql start --wsrep-new-cluster
@@ -187,7 +232,7 @@ Kết quả hiện ra
 
 <img src="http://image.prntscr.com/image/5bc9923e69b04e7890bb864b68334368.png" />
 
-### Chạy dịch vụ ở node 2
+#### Chạy dịch vụ ở node 2
 
 ```
 systemctl start mysql
@@ -211,7 +256,7 @@ Kết quả hiện ra
 
 <img src="http://image.prntscr.com/image/d17a3cd2781d413fb81e38473732cbdd.png" />
 
-### Chạy dịch vụ ở node 3
+#### Chạy dịch vụ ở node 3
 
 ```
 systemctl start mysql
@@ -235,11 +280,12 @@ Kết quả hiện ra
 
 <img src="http://image.prntscr.com/image/d0e2750174184034beccc834cc3d4301.png" />
 
-## Bước 7: Cấu hình Debian Maintenance User
+<a name="3.7"></a>
+### Bước 7: Cấu hình Debian Maintenance User
 
 Hiện tại, trên Ubuntu và Các máy chủ mysql của Debian sẽ có một user đặc biệt để thực hiện các quá trình trong Galera. Mặc định, khi cài đặt sẽ có một user được tạo ra và được ghi ở `/etc/mysql/debian.cnf` trên mỗi server.
 
-### Copy file từ máy chủ thứ nhất (node 1) ra các máy chủ còn lại
+#### Copy file từ máy chủ thứ nhất (node 1) ra các máy chủ còn lại
 
 Bước này khá đơn giản, chúng ta copy file `debian.cnf` từ server thứ nhất sang các server khác
 
@@ -275,9 +321,10 @@ update mysql.user set password=PASSWORD('password_from_debian.cnf') where User='
 
 **Note:** Thay thế `password_from_debian.cnf` bằng chuỗi trong password trong file `debian.cnf`
 
-## Bước 8: Test
+<a name="3.8"></a>
+### Bước 8: Test
 
-### Ghi dữ liệu vào Node 1
+#### Ghi dữ liệu vào Node 1
 
 ```
 mysql -u root -p -e 'CREATE DATABASE playground;
@@ -287,7 +334,7 @@ INSERT INTO playground.equipment (type, quant, color) VALUES ("slide", 2, "blue"
 
 <img src="http://image.prntscr.com/image/c76db32eade74e9f816ead8a91b0464e.png" />
 
-### Đọc và ghi dữ liệu vào Node 2
+#### Đọc và ghi dữ liệu vào Node 2
 
 ```
 mysql -u root -p -e 'SELECT * FROM playground.equipment;'
@@ -305,7 +352,7 @@ mysql -u root -p -e 'INSERT INTO playground.equipment (type, quant, color) VALUE
 
 <img src="http://image.prntscr.com/image/47c10496cef746b9af883db06499d09b.png" />
 
-### Đọc và ghi dữ liệu trên Node 3
+#### Đọc và ghi dữ liệu trên Node 3
 
 ```
 mysql -u root -p -e 'SELECT * FROM playground.equipment;'
@@ -323,7 +370,7 @@ mysql -u root -p -e 'INSERT INTO playground.equipment (type, quant, color) VALUE
 
 <img src="http://image.prntscr.com/image/a65fa2caf1f54a39a112a679253b3ff9.png" />
 
-### Đọc dữ liệu trên Node 1
+#### Đọc dữ liệu trên Node 1
 
 ```
 mysql -u root -p -e 'SELECT * FROM playground.equipment;'
@@ -333,6 +380,7 @@ Kết quả:
 
 <img src="http://image.prntscr.com/image/7d893aa53ee347758e059fc6c2e2705f.png" />
 
-# Kết luận
+<a name="4"></a>
+## 4. Kết luận
 
-Trên đây là hướng dẫn cấu hình Galera với **Active - Active**. Chúc các bạn thành công!
+Trên đây là hướng dẫn cấu hình Galera với mô hình hoạt động là **Active - Active** trên hệ điều hành Ubuntu 16.  Hy vọng có thể giúp ích cho hệ thống của các bạn.  Chúc các bạn thành công!
