@@ -12,6 +12,7 @@
 
 - [2.1 Cài đặt MariaDB trên các node](#2.1)
 - [2.2 Cài đặt Galera cho MariaDB](#2.2)
+- [2.3 Kiểm tra hoạt động](#2.3)
 
 [3. Tham khảo](#3)
 
@@ -43,7 +44,7 @@ GATEWAY: 192.168.100.1
 <a name="1.3"></a>
 ### 1.3. Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/3838b65e179f4f9ebc47385b3185a5e0.png" />
+<img width=75% src="http://i1363.photobucket.com/albums/r714/HoangLove9z/1-cluster_zpsxnmbgwiu.png" />
 
 <a name="2"></a>
 ## 2. Các bước tiến hành
@@ -61,7 +62,7 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 
 #### Cài đặt MariaDB
 
-- Bước cài đặt repos cho MariaDB
+- Cài đặt MariaDB với `yum`
 
 	```
 	yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server 
@@ -79,69 +80,70 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
         mysql -V 
         ```
 
-<img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
+    <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
 
-Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
+    - Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
 
-```
-vi /etc/profile.d/rh-mariadb101.sh 
-```
+        ```
+        vi /etc/profile.d/rh-mariadb101.sh 
+        ```
 
-```
-#!/bin/bash
+        ```
+        #!/bin/bash
 
-source /opt/rh/rh-mariadb101/enable
-export X_SCLS="`scl enable rh-mariadb101 'echo $X_SCLS'`"
-```
+        source /opt/rh/rh-mariadb101/enable
+        export X_SCLS="`scl enable rh-mariadb101 'echo $X_SCLS'`"
+        ```
 
-Bật MariaDB và cấu hình ban đầu:
+- Bật MariaDB và cấu hình ban đầu:
 
-- Khai báo thêm bộ mã hóa ký tự UTF-8 vào file cấu hình
+    - Khai báo thêm bộ mã hóa ký tự UTF-8 vào file cấu hình
 
-```
-vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
-```
+    ```
+    vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
+    ```
 
-Tìm section [mysqld] và thêm vào với nội dung
+    - Tìm section `[mysqld]` và thêm vào với nội dung
 
-```
-...
-character-set-server=utf8
-...
-```
+    ```
+    ...
+    character-set-server=utf8
+    ...
+    ```
+    
 - Khởi động và cấu hình
 
-Bật `MariaDB` và cho khởi động cùng hệ thống:
+    - Bật `MariaDB` và cho khởi động cùng hệ thống:
 
-```
-systemctl start rh-mariadb101-mariadb
-systemctl enable rh-mariadb101-mariadb 
-```
+        ```
+        systemctl start rh-mariadb101-mariadb
+        systemctl enable rh-mariadb101-mariadb 
+        ```
 
-- Cài đặt cơ bản
+    - Cài đặt cơ bản
 
-```
-mysql_secure_installation 
-```
+        ```
+        mysql_secure_installation 
+        ```
 
-<img src="http://image.prntscr.com/image/97e7126a0d2c428ba44bab3754c4b2d2.png" />
+        <img src="http://image.prntscr.com/image/97e7126a0d2c428ba44bab3754c4b2d2.png" />
 
-Cài đặt tiếp theo
+    - Cài đặt tiếp theo
 
-<img src="http://image.prntscr.com/image/8a24214987164f4ca8712c6c49714680.png" />
+        <img src="http://image.prntscr.com/image/8a24214987164f4ca8712c6c49714680.png" />
 
 - Kiểm tra Đăng nhập `MariaDB`
 
-```
-mysql -uroot -p -e "show databases;"
-```
+    ```
+    mysql -uroot -p -e "show databases;"
+    ```
 
-<img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
+    <img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
 
 <a name="2.2"></a>
 #### 2.2 Cài đặt Galera cho MariaDB
 
-- Cài đặt Galera trên các node
+- Cài đặt `Galera` trên các node
 
 ```
 yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server-galera
@@ -162,127 +164,116 @@ mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cn
 vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
 ```
 
-Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa** như sau:
+   - Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** như sau:
 
-```
-[galera]
-# Mandatory settings
-wsrep_on=ON
-wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
-wsrep_cluster_address=gcomm://
+    ```
+    [galera]
+    # Mandatory settings
+    wsrep_on=ON
+    wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
+    wsrep_cluster_address=gcomm://
 
-# Bỏ comment ở những dòng
-binlog_format=row
-default_storage_engine=InnoDB
-innodb_autoinc_lock_mode=2
-bind-address=0.0.0.0
+    binlog_format=row
+    default_storage_engine=InnoDB
+    innodb_autoinc_lock_mode=2
+    bind-address=0.0.0.0
 
-# Thêm vào các dòng sau
-# cluster name
-wsrep_cluster_name="MariaDB_Cluster"
+    # Them moi 3 dong nay
+    wsrep_cluster_name="MariaDB_Cluster"
+    wsrep_node_address="192.168.100.196"
+    wsrep_sst_method=rsync
+    ```
 
-# own IP address
-wsrep_node_address="192.168.100.196"
+    <img src="http://image.prntscr.com/image/5517d3701a89412ab6f13c57e6342f5a.png" />
 
-# replication provider
-wsrep_sst_method=rsync
-```
+    - Sau khi chỉnh sửa xong, khởi động `Galera`
 
-<img src="http://image.prntscr.com/image/5517d3701a89412ab6f13c57e6342f5a.png" />
-
-Sau khi chỉnh sửa xong, khởi động `Galera`
-
-```
-/opt/rh/rh-mariadb101/root/usr/bin/galera_new_cluster 
-```
+    ```
+    /opt/rh/rh-mariadb101/root/usr/bin/galera_new_cluster 
+    ```
 
 - Cấu hình ở các node còn lại:
 
-```
-mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf.org 
-vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
-```
+    ```
+    mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf.org 
+    vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
+    ```
 
-Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa** như sau:
+    Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** tương ứng:
 
-```
-[galera]
-# Mandatory settings
-wsrep_on=ON
-wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
-wsrep_cluster_address="gcomm://192.168.100.196,192.168.100.197,192.168.100.198"
+    ```
+    [galera]
+    # Mandatory settings
+    wsrep_on=ON
+    wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
+    wsrep_cluster_address="gcomm://192.168.100.196,192.168.100.197,192.168.100.198"
+    
+    binlog_format=row
+    default_storage_engine=InnoDB
+    innodb_autoinc_lock_mode=2
+    bind-address=0.0.0.0
 
-# Bỏ comment ở những dòng
-binlog_format=row
-default_storage_engine=InnoDB
-innodb_autoinc_lock_mode=2
-bind-address=0.0.0.0
+    # Them moi nhung dong sau:
+    wsrep_cluster_name="MariaDB_Cluster"
+    wsrep_node_address="IP_Của_Node_Tương_Ứng"
+    wsrep_sst_method=rsync
+    ```
 
-# Thêm vào các dòng sau
-# cluster name
-wsrep_cluster_name="MariaDB_Cluster"
+#### Trên node 2:
 
-# own IP address
-wsrep_node_address="IP_Của_Node_Tương_Ứng"
+    <img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
 
-# replication provider
-wsrep_sst_method=rsync
-```
+#### Trên node 3:
 
-Trên node 2:
+    <img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
 
-<img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
+    - Khởi động lại `MariaDB` trên từng node:
 
-Trên node 3:
+        ```
+        systemctl restart rh-mariadb101-mariadb
+        ```
 
-<img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
+<a name="2.3"></a>
+#### 2.3 Kiểm tra hoạt động
 
-Khởi động lại `MariaDB` trên từng node:
+- Tạo một database ở node 1:
 
-```
-systemctl restart rh-mariadb101-mariadb
-```
+    ```
+    mysql -uroot -p -e "create database node1;"
+    mysql -uroot -p -e "show databases;"
+    ```
 
-- Kiểm tra hoạt động
+    <img src="http://image.prntscr.com/image/3b57ce5034ab4d3a896804f79e85cf58.png" />
 
-Tạo một database ở node 1:
+- Xem và tạo database ở node 2:
 
-```
-mysql -uroot -p -e "create database node1;"
-mysql -uroot -p -e "show databases;"
-```
+    ```
+    mysql -uroot -p
 
-<img src="http://image.prntscr.com/image/3b57ce5034ab4d3a896804f79e85cf58.png" />
+    show databases;
+    create database node2;
+    ```
 
-Xem và tạo database ở node 2:
+    <img src="http://image.prntscr.com/image/e7085303a51e4218bf7da12b70270013.png" />
 
-```
-mysql -uroot -p
+- Xem và tạo database ở node 3:
 
-show databases;
-create database node2;
-```
+    ```
+    mysql -uroot -p
 
-<img src="http://image.prntscr.com/image/e7085303a51e4218bf7da12b70270013.png" />
+    show databases;
+    create database node3;
+    ```
 
-Xem và tạo database ở node 3:
+    <img src="http://image.prntscr.com/image/aefac42a78874b43a45bf2d17957ea3d.png" />
 
-```
-mysql -uroot -p
+- Quay lại node 1, chúng ta kiểm tra lại sẽ có 3 database được tạo:
 
-show databases;
-create database node3;
-```
+    ```
+    mysql -uroot -p -e "show databases;"
+    ```
 
-<img src="http://image.prntscr.com/image/aefac42a78874b43a45bf2d17957ea3d.png" />
-
-Quay lại node 1, chúng ta kiểm tra lại sẽ có 3 database được tạo:
-
-```
-mysql -uroot -p -e "show databases;"
-```
-
-<img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
+    <img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
 
 <a name="3"></a>
 3. Tham khảo:

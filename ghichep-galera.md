@@ -69,7 +69,7 @@ GATEWAY: 192.168.100.1
 <a name="2.3"></a>
 ### 2.3. Mô hình
 
-<img width=75% src="http://image.prntscr.com/image/0b80efe53ab540298fc6260ebd408c4d.png" />
+<img width=75% src="http://i1363.photobucket.com/albums/r714/HoangLove9z/centos_zpsbq0luv5v.png" />
 
 <a name="3"></a>
 ## 3. Các bước tiến hành
