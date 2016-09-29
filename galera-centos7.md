@@ -80,7 +80,7 @@
         mysql -V 
         ```
 
-        <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
+<img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
 
     - Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
 
@@ -130,7 +130,7 @@
 
     - Cài đặt tiếp theo
 
-<img src="http://image.prntscr.com/image/8a24214987164f4ca8712c6c49714680.png" />
+<img src="http://i1363.photobucket.com/albums/r714/HoangLove9z/demo_zpsb6xegnv5.png" />
 
 - Kiểm tra Đăng nhập `MariaDB`
 
@@ -219,11 +219,11 @@ vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
     wsrep_sst_method=rsync
     ```
 
-#### Trên node 2:
+    #### Trên node 2:
 
 <img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
 
-#### Trên node 3:
+    #### Trên node 3:
 
 <img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
 
