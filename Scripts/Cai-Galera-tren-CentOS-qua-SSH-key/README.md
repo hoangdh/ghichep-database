@@ -1,5 +1,7 @@
 ### Hướng dẫn sử dụng
 
+* Script có thể chạy trên một máy bất kỳ hoặc trên 1 trong 3 node.*
+
 - Bước 1. Khai báo IP các node của bạn vào file `conf.cfg` theo mẫu:
 
     ```
