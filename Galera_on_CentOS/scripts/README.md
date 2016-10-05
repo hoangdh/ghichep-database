@@ -37,7 +37,7 @@ Script này sẽ giúp các bạn cài đặt và cấu hình tự động Galer
     - `IP2` là địa chỉ IP của node 2
     - `IP3` là địa chỉ IP của node 3
     
-- **Bước 2**: Kiểm tra lại các file cấu hình `var.cfg`, script `p_s.bash` và SSH-Key của các node trong thư mục
+- **Bước 2**: Kiểm tra lại các file cấu hình `var.cfg`, script `galera.bash` và SSH-Key của các node trong thư mục
 
 - **Bước 3**: Phân quyền chạy cho script
     
