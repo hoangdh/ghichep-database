@@ -61,7 +61,7 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
 sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo 
 ```
 
-##### Cài đặt MariaDB
+#### Cài đặt MariaDB
 
 - Cài đặt MariaDB với `yum`
 
@@ -96,7 +96,7 @@ source /opt/rh/rh-mariadb101/enable
 export X_SCLS="`scl enable rh-mariadb101 'echo $X_SCLS'`"
 ```
 
-##### Bật MariaDB và cấu hình ban đầu:
+#### Bật MariaDB và cấu hình ban đầu:
 
 - Khai báo thêm bộ mã hóa ký tự UTF-8 vào file cấu hình
 
@@ -112,7 +112,7 @@ character-set-server=utf8
 ...
 ```
 
-##### Khởi động và cấu hình
+#### Khởi động và cấu hình
 
 - Bật `MariaDB` và cho khởi động cùng hệ thống:
 
@@ -142,9 +142,9 @@ mysql -uroot -p -e "show databases;"
 <img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
 
 <a name="2.2"></a>
-#### 2.2 Cài đặt Galera cho MariaDB
+### 2.2 Cài đặt Galera cho MariaDB
 
-##### Cài đặt `Galera` trên các node
+#### Cài đặt `Galera` trên các node
 
 ```
 yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server-galera
@@ -277,6 +277,6 @@ mysql -uroot -p -e "show databases;"
 <img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
 
 <a name="3"></a>
-3. Tham khảo:
+## 3. Tham khảo:
 
 - https://www.server-world.info/en/note?os=CentOS_7&p=mariadb101&f=4
