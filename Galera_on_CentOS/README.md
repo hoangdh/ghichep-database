@@ -165,114 +165,114 @@ mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cn
 vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
 ```
 
-   - Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** như sau:
+- Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** như sau:
 
-    ```
-    [galera]
-    # Mandatory settings
-    wsrep_on=ON
-    wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
-    wsrep_cluster_address=gcomm://
+```
+[galera]
+# Mandatory settings
+wsrep_on=ON
+wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
+wsrep_cluster_address=gcomm://
 
-    binlog_format=row
-    default_storage_engine=InnoDB
-    innodb_autoinc_lock_mode=2
-    bind-address=0.0.0.0
+binlog_format=row
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+bind-address=0.0.0.0
 
-    # Them moi 3 dong nay
-    wsrep_cluster_name="MariaDB_Cluster"
-    wsrep_node_address="192.168.100.196"
-    wsrep_sst_method=rsync
-    ```
+# Them moi 3 dong nay
+wsrep_cluster_name="MariaDB_Cluster"
+wsrep_node_address="192.168.100.196"
+wsrep_sst_method=rsync
+```
 
 <img src="http://image.prntscr.com/image/5517d3701a89412ab6f13c57e6342f5a.png" />
 
-    - Sau khi chỉnh sửa xong, khởi động `Galera`
+- Sau khi chỉnh sửa xong, khởi động `Galera`
 
-    ```
-    /opt/rh/rh-mariadb101/root/usr/bin/galera_new_cluster 
-    ```
+```
+/opt/rh/rh-mariadb101/root/usr/bin/galera_new_cluster 
+```
 
 - Cấu hình ở các node còn lại:
 
-    ```
-    mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf.org 
-    vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
-    ```
+```
+mv /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf /etc/opt/rh/rh-mariadb101/my.cnf.d/galera.cnf.org 
+vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf 
+```
 
-    Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** tương ứng:
+Mở file `mariadb-server.cnf`, tìm đến section `galera` và **chỉnh sửa những dòng** tương ứng:
 
-    ```
-    [galera]
-    # Mandatory settings
-    wsrep_on=ON
-    wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
-    wsrep_cluster_address="gcomm://192.168.100.196,192.168.100.197,192.168.100.198"
-    
-    binlog_format=row
-    default_storage_engine=InnoDB
-    innodb_autoinc_lock_mode=2
-    bind-address=0.0.0.0
+```
+[galera]
+# Mandatory settings
+wsrep_on=ON
+wsrep_provider=/opt/rh/rh-mariadb101/root/usr/lib64/galera/libgalera_smm.so
+wsrep_cluster_address="gcomm://192.168.100.196,192.168.100.197,192.168.100.198"
 
-    # Them moi nhung dong sau:
-    wsrep_cluster_name="MariaDB_Cluster"
-    wsrep_node_address="IP_Của_Node_Tương_Ứng"
-    wsrep_sst_method=rsync
-    ```
+binlog_format=row
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+bind-address=0.0.0.0
 
-    #### Trên node 2:
+# Them moi nhung dong sau:
+wsrep_cluster_name="MariaDB_Cluster"
+wsrep_node_address="IP_Của_Node_Tương_Ứng"
+wsrep_sst_method=rsync
+```
+
+#### Trên node 2:
 
 <img src="http://image.prntscr.com/image/20721807c5c14964b7c7b2569fcfa0a3.png" />
 
-    #### Trên node 3:
+#### Trên node 3:
 
 <img src="http://image.prntscr.com/image/05574c5920194b1a986c5bdc612fb932.png" />
 
-    - Khởi động lại `MariaDB` trên từng node:
+- Khởi động lại `MariaDB` trên từng node:
 
-        ```
-        systemctl restart rh-mariadb101-mariadb
-        ```
+```
+systemctl restart rh-mariadb101-mariadb
+```
 
 <a name="2.3"></a>
 #### 2.3 Kiểm tra hoạt động
 
 - Tạo một database ở node 1:
 
-    ```
-    mysql -uroot -p -e "create database node1;"
-    mysql -uroot -p -e "show databases;"
-    ```
+```
+mysql -uroot -p -e "create database node1;"
+mysql -uroot -p -e "show databases;"
+```
 
 <img src="http://image.prntscr.com/image/3b57ce5034ab4d3a896804f79e85cf58.png" />
 
 - Xem và tạo database ở node 2:
 
-    ```
-    mysql -uroot -p
+```
+mysql -uroot -p
 
-    show databases;
-    create database node2;
-    ```
+show databases;
+create database node2;
+```
 
 <img src="http://image.prntscr.com/image/e7085303a51e4218bf7da12b70270013.png" />
 
 - Xem và tạo database ở node 3:
 
-    ```
-    mysql -uroot -p
+```
+mysql -uroot -p
 
-    show databases;
-    create database node3;
-    ```
+show databases;
+create database node3;
+```
 
 <img src="http://image.prntscr.com/image/aefac42a78874b43a45bf2d17957ea3d.png" />
 
 - Quay lại node 1, chúng ta kiểm tra lại sẽ có 3 database được tạo:
 
-    ```
-    mysql -uroot -p -e "show databases;"
-    ```
+```
+mysql -uroot -p -e "show databases;"
+```
 
 <img src="http://image.prntscr.com/image/7bae6d27b1ae44bbb78d9572d5fd23ee.png" />
 
