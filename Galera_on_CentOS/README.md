@@ -22,24 +22,25 @@
 <a name="1.1"></a>
 ### 1.1. Môi trường cài đặt
 
-    ```
-    [root@node1 ~]# cat /etc/redhat-release
-    CentOS Linux release 7.2.1511 (Core)
-    [root@node1 ~]# uname -a
-    Linux node1.hoang.lab 3.10.0-327.28.3.el7.x86_64 #1 SMP Thu Aug 18 19:05:49 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-    ```
+```
+[root@node1 ~]# cat /etc/redhat-release
+CentOS Linux release 7.2.1511 (Core)
+[root@node1 ~]# uname -a
+Linux node1.hoang.lab 3.10.0-327.28.3.el7.x86_64 #1 SMP Thu Aug 18 19:05:49 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
 
 <a name="1.2"></a>
 ### 1.2. Thiết lập IP cho các node
 
-    ```
-    IP:
-    Node 1: 192.168.100.196
-    Node 2: 192.168.100.197
-    Node 3: 192.168.100.198
+```
+IP:
+Node 1: 192.168.100.196
+Node 2: 192.168.100.197
+Node 3: 192.168.100.198
 
-    GATEWAY: 192.168.100.1
-    ```
+GATEWAY: 192.168.100.1
+NETWORK: 192.168.100.0/24
+```
 
 <a name="1.3"></a>
 ### 1.3. Mô hình
@@ -54,11 +55,11 @@
 
 #### Cài đặt Repo cho các node và set độ ưu tiên của repo
 
-    ```
-    yum -y install centos-release-scl-rh centos-release-scl
-    sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
-    sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo 
-    ```
+```
+yum -y install centos-release-scl-rh centos-release-scl
+sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl.repo
+sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo 
+```
 
 #### Cài đặt MariaDB
 
