@@ -84,8 +84,8 @@ Cluster có 2 mode hoạt động là **Active - Passive** và **Active - Active
 
 Hướng dẫn cài đặt trên:
 
-- [Ubuntu] ()
-- [CentOS] ()
+- [Ubuntu] (https://github.com/hoangdh/ghichep-database/tree/master/Galera_on_Ubuntu)
+- [CentOS] (https://github.com/hoangdh/ghichep-database/tree/master/Galera_on_CentOS)
 
 <a name="2.2.2"></a>
 ### 2.2.2 DRBD (Distributed Replicated Block Device)
