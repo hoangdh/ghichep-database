@@ -82,6 +82,11 @@ Cluster có 2 mode hoạt động là **Active - Passive** và **Active - Active
 - **Active - Passive**: Tất cả các thao tác ghi sẽ được thực hiện ở máy chủ Active, sau đó sẽ được sao chép sang các máy chủ Passive. Các máy chủ Passive này sẽ sẵn sàng đảm nhiệm vai trò của máy chủ Active khi xảy ra sự cố. Trong một vài trường hợp, **Active - Passive** cho phép `SELECT` ở các máy chủ Passive.
 - **Active - Active**: Thao tác đọc - ghi dữ liệu sẽ diễn ra ở mỗi node. Khi có thay đổi, dữ liệu sẽ được đồng bộ tới tất cả các node
 
+Hướng dẫn cài đặt trên:
+
+- [Ubuntu] ()
+- [CentOS] ()
+
 <a name="2.2.2"></a>
 ### 2.2.2 DRBD (Distributed Replicated Block Device)
 
