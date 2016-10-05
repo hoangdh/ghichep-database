@@ -65,79 +65,79 @@ sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 
 - Cài đặt MariaDB với `yum`
 
-	```
-	yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server 
-	```
+```
+yum --enablerepo=centos-sclo-rh -y install rh-mariadb101-mariadb-server 
+```
 
-    - Load các biến môi trường
+- Load các biến môi trường
 
-        ```
-        scl enable rh-mariadb101 bash
-        ```
+```
+scl enable rh-mariadb101 bash
+```
 
-    - Kiểm tra phiên bản của MariaDB
+- Kiểm tra phiên bản của MariaDB
 
-        ```
-        mysql -V 
-        ```
+```
+mysql -V 
+```
 
 <img src="http://image.prntscr.com/image/ae36e8df17b546c481050aad186ec27c.png" />
 
-    - Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
+- Cho `rh-mariadb` khởi động cùng hệ thống, soạn file với nội dung:
 
-        ```
-        vi /etc/profile.d/rh-mariadb101.sh 
-        ```
+```
+vi /etc/profile.d/rh-mariadb101.sh 
+```
 
-        ```
-        #!/bin/bash
+```
+#!/bin/bash
 
-        source /opt/rh/rh-mariadb101/enable
-        export X_SCLS="`scl enable rh-mariadb101 'echo $X_SCLS'`"
-        ```
+source /opt/rh/rh-mariadb101/enable
+export X_SCLS="`scl enable rh-mariadb101 'echo $X_SCLS'`"
+```
 
 - Bật MariaDB và cấu hình ban đầu:
 
-    - Khai báo thêm bộ mã hóa ký tự UTF-8 vào file cấu hình
+- Khai báo thêm bộ mã hóa ký tự UTF-8 vào file cấu hình
 
-    ```
-    vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
-    ```
+```
+vi /etc/opt/rh/rh-mariadb101/my.cnf.d/mariadb-server.cnf
+```
 
-    - Tìm section `[mysqld]` và thêm vào với nội dung
+- Tìm section `[mysqld]` và thêm vào với nội dung
 
-    ```
-    ...
-    character-set-server=utf8
-    ...
-    ```
-    
+```
+...
+character-set-server=utf8
+...
+```
+
 - Khởi động và cấu hình
 
-    - Bật `MariaDB` và cho khởi động cùng hệ thống:
+- Bật `MariaDB` và cho khởi động cùng hệ thống:
 
-        ```
-        systemctl start rh-mariadb101-mariadb
-        systemctl enable rh-mariadb101-mariadb 
-        ```
+```
+systemctl start rh-mariadb101-mariadb
+systemctl enable rh-mariadb101-mariadb 
+```
 
-    - Cài đặt cơ bản
+- Cài đặt cơ bản
 
-        ```
-        mysql_secure_installation 
-        ```
+```
+mysql_secure_installation 
+```
 
 <img src="http://image.prntscr.com/image/97e7126a0d2c428ba44bab3754c4b2d2.png" />
 
-    - Cài đặt tiếp theo
+- Cài đặt tiếp theo
 
 <img src="http://i1363.photobucket.com/albums/r714/HoangLove9z/demo_zpsb6xegnv5.png" />
 
 - Kiểm tra Đăng nhập `MariaDB`
 
-    ```
-    mysql -uroot -p -e "show databases;"
-    ```
+```
+mysql -uroot -p -e "show databases;"
+```
 
 <img src="http://image.prntscr.com/image/cd55528542c44760bd952674e65b4e69.png" />
 
