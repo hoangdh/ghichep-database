@@ -9,7 +9,7 @@
 <a name="1"></a>
 ### 1. Giới thiệu
 
-Script này sẽ giúp các bạn cài đặt và cấu hình tự động Galera cho 3 node cho MySQL trên Ubuntu. Các bạn có thể xem bài hướng dẫn cài đặt bằng tay ở <a href="https://github.com/hoangdh/ghichep-database/tree/master/Galera_on_Ubuntu" >đây</a> để hiểu rõ hơn quá trình làm việc của script.
+Script này sẽ giúp các bạn cài đặt và cấu hình tự động Galera 3 node cho MySQL trên Ubuntu. Các bạn có thể xem bài hướng dẫn cài đặt bằng tay ở <a href="https://github.com/hoangdh/ghichep-database/tree/master/Galera_on_Ubuntu" >đây</a> để hiểu rõ hơn quá trình làm việc của script.
 
 <a name="2"></a>
 ### 2. Yêu cầu:
