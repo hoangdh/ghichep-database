@@ -1,6 +1,6 @@
 ## Hướng dẫn cài đặt Galera cho MariaDB trên CentOS 7
 
-#### Menu
+### Menu
 
 [1. Chuẩn bị ](#1)
 
@@ -15,6 +15,8 @@
 - [2.3 Kiểm tra hoạt động](#2.3)
 
 [3. Tham khảo](#3)
+
+- [Script cài đặt tự động] (https://github.com/hoangdh/ghichep-database/tree/master/Galera_on_CentOS/scripts)
 
 <a name="1"></a>
 ## 1. Chuẩn bị
