@@ -16,29 +16,8 @@ setup_Ubuntu()
 
 configure_Galera()
 {
-    cat > /etc/mysql/conf.d/galera.cnf << H2
-[mysqld]
-binlog_format=ROW
-default-storage-engine=innodb
-innodb_autoinc_lock_mode=2
-bind-address=0.0.0.0
-
-# Galera Provider Configuration
-wsrep_on=ON
-wsrep_provider=/usr/lib/galera/libgalera_smm.so
-
-# Galera Cluster Configuration
-wsrep_cluster_name="test_cluster"
-wsrep_cluster_address="gcomm://$IP1,$IP2,$IP3"
-
-# Galera Synchronization Configuration
-wsrep_sst_method=rsync
-
-# Galera Node Configuration
-wsrep_node_address="$1"
-wsrep_node_name="Galera_Node_$2"
-H2
-    sed -e '/bind-address/ s/^#*/#/g' /etc/mysql/my.cnf
+    
+    sed -i '/bind-address/ s/^#*/#/g' /etc/mysql/my.cnf
     ufw allow 3306,4567,4568,4444/tcp
     ufw allow 4567/udp
     systemctl stop mysql

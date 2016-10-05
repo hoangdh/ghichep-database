@@ -31,7 +31,7 @@ wsrep_node_address="$2"
 wsrep_node_name="Galera_Node_$1"
 H2
     scp -i node$1 galera.cnf root@$2:/etc/mysql/conf.d/
-    ssh -i node$1 root@$2 "sed -e '/bind-address/ s/^#*/#/g' /etc/mysql/my.cnf"
+    ssh -i node$1 root@$2 "sed -i '/bind-address/ s/^#*/#/g' /etc/mysql/my.cnf"
     ssh -i node$1 root@$2 "ufw allow 3306,4567,4568,4444/tcp && ufw allow 4567/udp && /etc/init.d/mysql stop"
        
     # ssh -i node$1 root@$2
