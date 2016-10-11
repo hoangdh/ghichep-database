@@ -134,6 +134,13 @@ echo "passwd" | passwd hacluster --stdin
 
 **Chú ý**: Thay `'passwd'` bằng mật khẩu của bạn.
 
+Khởi động dịch vụ pcs:
+
+```
+systemctl start pcsd.service
+systemctl enable pcsd.service
+```
+
 <a name="2.3"></a>
 ### 2.3 Cấu hình Corosync
 
@@ -258,10 +265,19 @@ drbdadm create-md mysql01
 drbdadm up mysql01
 ```
 
-- Sử dụng tài nguyên trên node 1 (Chỉ chạy lệnh trên node1)
+- Sử dụng tài nguyên trên node 1 (Từ đây, chỉ chạy lệnh trên node1)
 
 ```
 drbdadm primary --force mysql01
+```
+
+- Xem quá trình đồng bộ, xong sẽ chạy câu lệnh tiếp theo
+
+```
+drbd-overview
+
+ 0:mysql01/0  Connected Primary/Secondary UpToDate/UpToDate
+
 ```
 
 - Tạo filesystem cho DRBD với các tùy chọn sau:
@@ -436,7 +452,7 @@ Cuối cùng, chúng ta tạo một cụm tài nguyên cho VIP với tên `mysql
 
 ```
 pcs -f clust_cfg resource create mysql_VIP01 ocf:heartbeat:IPaddr2 \
-ip=10.8.8.60 cidr_netmask=32 \
+ip=192.168.100.123 cidr_netmask=32 \
 op monitor interval=30s
 ```
 
