@@ -2,6 +2,26 @@
 
 *Chúng ta sẽ sử dụng 2 node Active/Passive cho MariaDB HA cluster sử dụng Pacemaker+Corosync*
 
+[1. Chuẩn bị ](#1)
+
+- [1.1. Môi trường cài đặt](#1.1)
+- [1.2. Thiết lập IP cho các node](#1.2)
+- [1.3. Mô hình](#1.3)
+
+[2. Các bước tiến hành](#2)
+
+- [2.1 Thêm thông tin các node vào file hosts](#2.1)
+- [2.2 Cài đặt Pacemaker và Corosync](#2.2)
+- [2.3 Cấu hình Corosync](#2.3)
+- [2.4 Cài đặt DRBD và MariaDB](#2.4)
+    - [2.4.1 DRBD ](#2.4.1)
+    - [2.4.2 Tạo LVM Volume cho DRBD ](#2.4.2)
+    - [2.4.3 Cấu hình DRBD ](#2.4.3)
+    - [2.4.4 MariaDB ](#2.4.4)
+- [2.5 ] Cấu hình pacemaker(#2.5)
+
+[3. Tham khảo](#3)
+
 <a name="1"></a>
 ## 1. Chuẩn bị
 
@@ -141,6 +161,8 @@ pcs cluster start --all
 <a name="2.4"></a>
 ### 2.4 Cài đặt DRBD và MariaDB
 
+
+<a name="2.4.1"></a>
 #### 2.4.1 DRBD
 
 Nôm na, DRBD đồng bộ dữ liệu 2 block devices thông qua mạng. Có thể nói đây là cơ chế RAID-1 của các thiết bị logic.
@@ -158,6 +180,9 @@ yum install -y kmod-drbd84 drbd84-utils
 ```
 semanage permissive -a drbd_t
 ```
+
+
+<a name="2.4.2"></a>
 #### 2.4.2 Tạo LVM Volume cho DRBD
 
 Chúng ta tạo một logic volume trên cả 2 node, như đã nói ở trên thì tùy theo dung lượng DB của các bạn mà tạo dung lượng cho phù hợp. Bài hướng dẫn tôi sẽ demo dung lượng 1GB.
@@ -176,6 +201,7 @@ Tạo mới một Logical Volume
 lvcreate --name lv_drbd --size 1024M vg_centos7
 ```
 
+<a name="2.4.3"></a>
 #### 2.4.3 Cấu hình DRBD
 
 Cấu hình DRBD sử dụng mode `single-primary` với giao thức replication C
@@ -252,7 +278,8 @@ tune2fs -c 30 -i 180d /dev/drbd0
 mount /dev/drbd0 /mnt
 ```
 
-#### 2.4.2 MariaDB
+<a name="2.4.4"></a>
+#### 2.4.4 MariaDB
 
 Cài đặt MariaDB trên tất cả các node
 
@@ -323,6 +350,7 @@ socket                  = /var/run/mariadb/mysqld.sock
 !includedir /etc/my.cnf.d
 ```
 
+<a name="2.5"></a>
 ### 2.5 Cấu hình Pacemaker
 
 Chúng ta sẽ cấu hình cho pacemaker tự động theo logic các dịch vụ như sau:
@@ -472,3 +500,9 @@ Full list of resources:
 
 [...]
 ```
+
+
+<a name="3"></a>
+## 3. Tham khảo
+
+- Nguồn: https://www.lisenet.com/2016/activepassive-mysql-high-availability-pacemaker-cluster-with-drbd-on-centos-7/
