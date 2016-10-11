@@ -18,7 +18,7 @@
     - [2.4.2 Tạo LVM Volume cho DRBD ](#2.4.2)
     - [2.4.3 Cấu hình DRBD ](#2.4.3)
     - [2.4.4 MariaDB ](#2.4.4)
-- [2.5 ] Cấu hình pacemaker(#2.5)
+- [2.5 Cấu hình pacemaker ](#2.5)
 
 [3. Tham khảo](#3)
 
@@ -56,8 +56,7 @@ NETWORK: 192.168.100.0/24
 <a name="1.3"></a>
 ### 1.3. Mô hình
 
-## Hình tạm, cần thay ngay
-<img width=75% src="http://i1363.photobucket.com/albums/r714/HoangLove9z/1-cluster_zpsxnmbgwiu.png" />
+<img width=75% src="https://camo.githubusercontent.com/bf6d9f67c22c5f4944f5fa334789e63ca5d5c64c/687474703a2f2f696d6167652e70726e747363722e636f6d2f696d6167652f37653965316132366537656634623630393361663633383434393135303532652e706e67" />
 
 <a name="2"></a>
 ## 2. Các bước thực hiện
