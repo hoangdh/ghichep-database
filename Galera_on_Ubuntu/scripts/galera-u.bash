@@ -3,11 +3,13 @@
 cauhinhchung()
 {
     ssh -i node$1 root@$2 "apt-key adv --keyserver keyserver.ubuntu.com --recv  44B7345738EBDE52594DAD80D669017EBC19DDBA"
+     ## Thay vao dong 5 U16: wget -qO - http://releases.galeracluster.com/GPG-KEY-galeracluster.com | sudo apt-key add -
     ssh -i node$1 root@$2 "add-apt-repository 'deb [arch=amd64,i386] http://releases.galeracluster.com/ubuntu/ xenial main'"
     ssh -i node$1 root@$2 "debconf-set-selections <<< \"mysql-server mysql-server/root_password password $PASSWORD\""
     ssh -i node$1 root@$2 "debconf-set-selections <<< \"mysql-server mysql-server/root_password_again password $PASSWORD\""
-    ssh -i node$1 root@$2 "apt-get update && apt-get install -y galera-3 galera-arbitrator-3 mysql-wsrep-5.6 rsync"
-    
+     ssh -i node$1 root@$2 "apt-get update"
+    ssh -i node$1 root@$2 "apt-get install -y galera-3 galera-arbitrator-3 mysql-wsrep-5.6 rsync"
+   
      cat > galera.cnf << H2
 [mysqld]
 binlog_format=ROW
