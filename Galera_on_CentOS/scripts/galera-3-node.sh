@@ -54,9 +54,21 @@ H2
 scp galera.cnf root@$1:/etc/my.cnf.d/
 if [ "$2" = "1" ]
 then
-    ssh root@$1 "/etc/init.d/mysql restart --wsrep-new-cluster"
-else
+    ssh root@$1 "/etc/init.d/mysql restart --wsrep-new-cluster" 
+	ssh root@$1 "mysql -uroot -e \"set password for 'root'@'localhost' = password('$PASSWORD');\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"DELETE from  mysql.user where Password = '';\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"CREATE USER 'root'@'%' IDENTIFIED BY '$PASSWORD';\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"FLUSH PRIVILEGES;\""
+	
+elif [ "$2" = "2" ]
+	then
     ssh root@$1 "/etc/init.d/mysql restart"
+	ssh root@$1 "mysql -uroot -e \"set password for 'root'@'localhost' = password('$PASSWORD');\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"DELETE from  mysql.user where Password = '';\""
+	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"drop database test;\""
+else
+	 ssh root@$1 "/etc/init.d/mysql restart"
 fi
 }
 
@@ -71,6 +83,7 @@ do
             then
                NODE=`echo $y | awk -F = '{print $1}' | awk -F P {'print $2'}`
                setup $x $NODE
+			   chkconfig mysql on
             fi
         done
 done
