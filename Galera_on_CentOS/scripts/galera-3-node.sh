@@ -54,6 +54,7 @@ H2
 scp galera.cnf root@$1:/etc/my.cnf.d/
 if [ "$2" = "1" ]
 then
+	
     ssh root@$1 "/etc/init.d/mysql restart --wsrep-new-cluster" 
 	ssh root@$1 "mysql -uroot -e \"set password for 'root'@'localhost' = password('$PASSWORD');\""
 	ssh root@$1 "mysql -uroot -p$PASSWORD -e \"DELETE from  mysql.user where Password = '';\""
@@ -83,7 +84,7 @@ do
             then
                NODE=`echo $y | awk -F = '{print $1}' | awk -F P {'print $2'}`
                setup $x $NODE
-			   chkconfig mysql on
+			   ssh root@$x "chkconfig mysql on"
             fi
         done
 done
