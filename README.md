@@ -1,21 +1,22 @@
 ## Ghi chép về các kỹ thuật/giải pháp HA cho mysql/mariadb
 
 ### Mục lục:
-[1. Giới thiệu về HA cho DB ](#1)
-[2. Các giải giải pháp ](#2)
+- [1. Giới thiệu về HA cho DB ](#1)
+- [2. Các giải giải pháp ](#2)
 - [2.1 Giải pháp có sẵn ](#2.1)	
-	[2.1.1 Master - Slave ](#2.1.1)		
-	[2.1.2 Master - Master ](#2.1.2)	
+	- [2.1.1 Master - Slave ](#2.1.1)		
+	- [2.1.2 Master - Master ](#2.1.2)	
 - [2.2 Giải pháp bên thứ 3 (3rd party) ](#2.2)	
-	[2.2.1 Galera](#2.2.1)	
-	[2.2.2 DRBD ](#2.2.2)	
-	[2.2.3 Radundant Hardware ](#2.2.3)	
-	[2.2.4 Shared Storage ](#2.2.4)	
-	[2.2.5 MySQL clustering  ](#2.2.5)	
-	[2.2.6 Percona cluster  ](#2.2.6)	
-[3. Kết luận ](#3)
+	- [2.2.1 Galera](#2.2.1)	
+	- [2.2.2 DRBD ](#2.2.2)	
+	- [2.2.3 Radundant Hardware ](#2.2.3)	
+	- [2.2.4 Shared Storage ](#2.2.4)	
+	- [2.2.5 MySQL clustering  ](#2.2.5)	
+	- [2.2.6 Percona cluster  ](#2.2.6)	
+- [3. Kết luận ](#3)
 
 <a name="1"></a>
+
 ## 1. Giới thiệu về HA
 
 ### HA giải quyết được gì?
