@@ -22,7 +22,7 @@ Kiểm tra lại thông tin của gói cài đặt `mysql-community-server`
 
 Sau khi kích hoạt, ta sử dụng lệnh sau để cài đặt `mysql-community` bản 5.7
 
-> yum install -y mysql-community-server.x86_6y
+> yum install -y mysql-community-server.x86_64
 
 Chờ khoảng 3-5p, tùy thuộc vào tốc độ mạng và cấu hình máy chủ của bạn.
 
