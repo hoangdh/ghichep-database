@@ -1,4 +1,4 @@
-### Cài đặt thông qua Repository của MySQL Community
+## Cài đặt thông qua Repository của MySQL Community
 
 ### 1. Cài đặt Repository của MySQL
 
