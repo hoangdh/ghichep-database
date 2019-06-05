@@ -34,7 +34,7 @@ mysql> flush privileges;
 
 ```
 
-Khóa bảng và dump dữ liệu 
+Khóa bảng và dump dữ liệu <a name='1' />
 
 ```
 mysql> flush tables with read lock;
@@ -51,6 +51,8 @@ mysql> show master status;
 1 row in set (0.00 sec)
 
 ```
+
+> **Chú ý**: Ghi nhớ thông tin này để khai báo khi [cấu hình trên Slave](#2)
 
 Mở một cửa sổ terminal khác để dump dữ liệu
 
@@ -86,10 +88,10 @@ Khởi động lại MySQL
 Khôi phục lại dữ liệu vừa dump trên Master. Ví dụ, file dump được copy về để ở thư mục /tmp
 
 > mysql -u root -p < /tmp/mysql_dump.sql
-
+<a name='2' />
 Sau khi xong, đăng nhập vào MySQL để cấu hình Repilcate Master Slave
 
-> mysql -uroot -p
+> mysql -uroot -p.
 
 ```
 mysql> change master to
@@ -101,3 +103,5 @@ mysql> change master to
  mysql> start slave;
  mysql> show slave status\Gd
  ```
+
+**Chú ý**: Điền thông tin log_file và log_pos trùng khớp với thông số mà ta đã lấy ở bước [trên](#1).
