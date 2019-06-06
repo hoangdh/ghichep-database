@@ -9,20 +9,27 @@ Bài lab này sẽ thực hiện với mô hình 2 máy chủ: 1 máy chủ mast
 
 ### 1. Cấu hình trên máy chủ Master
 
-Tạm dừng dịch vụ MySQL
+#### Tạm dừng dịch vụ MySQL
 
 > systemctl stop mysqld
+
+#### Khai báo cấu hình cho Master
 
 Thêm các dòng sau vào file cấu hình `/etc/my.cnf`
 
 ```
 [mysqld]
-bind-address=0.0.0.0
+...
+bind-address=10.10.10.1
 log-bin=/var/lib/mysql/mysql-bin
 server-id=101
 ```
 
-Khởi động dịch vụ MySQL
+- `bind-address`: Cho phép dịch vụ lắng nghe trên IP. Mặc định là 127.0.0.1 - localhost
+- `log-bin`: Thư mục chứa log binary của MySQL, dữ liệu mà Slave lấy về thực thi công việc replicate.
+- `server-id`: Số định danh Server
+
+#### Khởi động dịch vụ MySQL
 
 > systemctl start mysqld
 
@@ -38,13 +45,10 @@ mysql> flush privileges;
 
 ```
 
-Khóa bảng và dump dữ liệu <a name='1' />
+Khóa tất cả các bảng và dump dữ liệu <a name='1' />
 
 ```
 mysql> flush tables with read lock;
-
-Query OK, 0 rows affected (0.00 sec)
-
 mysql> show master status;
 
 +------------------+----------+--------------+------------------+-------------------+
@@ -73,16 +77,13 @@ Chuyển dữ liệu vừa dump sang máy chủ slave.
 
 ### 2. Cấu hình máy chủ Slave
 
-Thêm các dòng sau vào file cấu hình `my.cnf` trên máy chủ Slave
+Thêm các dòng sau vào file cấu hình `my.cnf` trên máy chủ Slave. Mục đích là định danh máy chủ slave và chỉ ra nơi lưu trữ bin-log.
 
 ```
 [mysqld]
 ...
 log-bin=/var/lib/mysql/mysql-bin
-# define server ID (different one from Master Host)
 server-id=102
-# read only
-read_only=1
 ```
 
 Khởi động lại MySQL
@@ -108,4 +109,4 @@ mysql> change master to
  mysql> show slave status\Gd
  ```
 
-**Chú ý**: Điền thông tin log_file và log_pos trùng khớp với thông số mà ta đã lấy ở bước [trên](#1).
+**Chú ý**: Điền thông tin `log_file` và `log_pos` trùng khớp với thông số mà ta đã lấy ở bước [trên](#1).
