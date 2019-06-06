@@ -1,5 +1,9 @@
 ## Cấu hình MySQL Replication Master - Slave
 
+MySQL replication là một tiến trình cho phép sao chép dữ liệu của MySQL một cách tự động từ máy chủ Master sang máy chủ Slave. Nó vô cùng hữu ích cho việc backup dữ liệu hoặc sử dụng để phân tích mà không cần thiết phải truy vấn trực tiếp tới CSDL chính hay đơn giản là để mở rộng mô hình.
+
+Bài lab này sẽ thực hiện với mô hình 2 máy chủ: 1 máy chủ master sẽ gửi thông tin, dữ liệu tới một máy chủ slave khác (Có thể chung hoặc khác hạ tầng mạng). Để thực hiện, trong ví dụ này sử dụng 2 IP:
+
 - IP Master: 10.10.10.1
 - IP Slave: 10.10.10.2
 
