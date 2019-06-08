@@ -48,6 +48,22 @@ Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhi�
 
 **Replication** là tính năng cho phép dữ liệu của (các) máy chủ Master được sao chép/nhân bản trên một hoặc nhiều máy chủ khác (Slave). Mục đích của việc này là để sao lưu dữ liệu ra các máy chủ khác đề phòng máy chủ chính gặp sự cố.
 
+**Có thể sao chép/nhân bản được những gì?**
+
+Tùy vào mục đích sử dụng, tính năng này cho phép chúng ta sao chép/nhân bản từ Tất cả các DB trên Master, một hoặc nhiều DB, cho đến các bảng trong mỗi DB sang Slave một cách tự động.
+
+**Cơ chế hoạt động**
+
+Máy chủ Master sẽ gửi các binary-log đến máy chủ Slave. Máy chủ Slave sẽ đọc các binary-log từ Master để yêu cầu truy cập dữ liệu vào quá trình replication. Một relay-log được tạo ra trên slave, nó sử dụng định dạng giống với binary-log. Các relay-log sẽ được sử dụng để replication và được xóa bỏ khi hoàn tất quá trình replication.
+
+Các master và slave không nhất thiết phải luôn kết nối với nhau. Nó có thể được đưa về trạng thái offline và khi được kết nối lại, quá trình replication sẽ được tiếp tục ở thời điểm nó offline.
+
+**Binary-log là gì?**
+
+Binary-log chứa những bản ghi ghi lại những thay đổi của các database. Nó chứa dữ liệu và cấu trúc của DB (có bao nhiêu bảng, bảng có bao nhiêu trường,...), các câu lệnh được thực hiện trong bao lâu,... Nó bao gồm các file nhị phân và các index.
+
+Binary-log được lưu trữ ở dạng nhị phân không phải là dạng văn bản plain-text.
+
 <a name="2.1.1"></a>
 
 #### 2.1.1 Master - Slave
