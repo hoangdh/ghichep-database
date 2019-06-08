@@ -106,7 +106,7 @@ mysql> change master to
     -> master_log_file='mysql-bin.000001',
     -> master_log_pos=592;
  mysql> start slave;
- mysql> show slave status\Gd
+ mysql> show slave status\G
  ```
 
 **Chú ý**: Điền thông tin `log_file` và `log_pos` trùng khớp với thông số mà ta đã lấy ở bước [trên](#1).
