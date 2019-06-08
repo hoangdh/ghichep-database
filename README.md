@@ -36,7 +36,7 @@ Có 2 giải pháp chính cho việc HA:
 	- Master - Slave
 	- Master - Master
 
-- Giải pháp 3rd party: Cùng với mục đích là để nhất quán dữ liệu với các server với nhau nhưng cơ chế hoạt động và mô hình khác với giải pháp Native. Một số kỹ thuật mà tôi đã tìm hiểu là:
+- Giải pháp 3rd party: Cùng với mục đích là để nhất quán dữ liệu với các server với nhau nhưng cơ chế hoạt động và mô hình khác với giải pháp Native. Một số kỹ thuật mà chúng tôi đã tìm hiểu là:
 	- Galera
 	- [DRBD](https://github.com/hoangdh/ghichep-drbd)
 
