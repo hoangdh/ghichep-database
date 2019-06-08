@@ -53,6 +53,8 @@ Cơ chế làm việc như sau: Trên mỗi server sẽ có một user làm nhi�
 
 <img src="http://image.prntscr.com/image/0d9a0a557ae14f3e8677aae42816227c.png" />
 
+Tham khảo cách [cấu hình](docs/2-replica-master-slave.md).
+
 <a name="2.1.2"></a>
 
 #### 2.1.2 Master - Master
