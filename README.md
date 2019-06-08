@@ -19,6 +19,8 @@
 
 ## 1. Giới thiệu về HA
 
+Ngày nay, công nghệ thông tin đã ăn sâu vào nhiều lĩnh vực trong đời sống phục vụ cho sản xuất, giải trí và đặc biệt nhu cầu thông tin. Các hệ thống này luôn được đầu tư với quy mô càng ngày càng mở rộng, là hướng phát triển trọng tâm của doanh nghiệp cung cấp nội dung. Để đảm bảo các dịch vụ chạy thông suốt, phục vụ tối đa đến nhu cầu của người sử dụng và nâng cao tính bảo mật, an toàn dữ liệu; giải pháp High Availability được nghiên cứu và phát triển bởi nhiều hãng công nghệ lớn. Với Database, tính an toàn và khả dụng được đặt lên hàng đầu. Vì vậy, ở bài viết này, chúng tôi xin phép điểm qua một vài Giải pháp HA cho hệ cơ sở dữ liệu sử dụng MySQL hoặc MariaDB đang được cộng đồng tin dùng.
+
 ### HA giải quyết được gì?
 
 - Tăng tính hoạt động sẵn sàng dữ liệu mọi lúc mọi nơi
@@ -36,7 +38,7 @@ Có 2 giải pháp chính cho việc HA:
 
 - Giải pháp 3rd party: Cùng với mục đích là để nhất quán dữ liệu với các server với nhau nhưng cơ chế hoạt động và mô hình khác với giải pháp Native. Một số kỹ thuật mà tôi đã tìm hiểu là:
 	- Galera
-	- [DRBD ](https://github.com/hoangdh/ghichep-drbd)
+	- [DRBD](https://github.com/hoangdh/ghichep-drbd)
 
 <a name="2.1"></a>
 
