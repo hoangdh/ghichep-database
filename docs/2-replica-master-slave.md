@@ -96,7 +96,7 @@ Khôi phục lại dữ liệu vừa dump trên Master. Ví dụ, file dump đư
 <a name='2' />
 Sau khi xong, đăng nhập vào MySQL để cấu hình Repilcate Master Slave
 
-> mysql -uroot -p.
+> mysql -uroot -p
 
 ```
 mysql> change master to
