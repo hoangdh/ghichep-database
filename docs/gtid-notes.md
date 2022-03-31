@@ -1,7 +1,7 @@
 ### Khái niệm GTID
 
 GTID (Global Transaction Identifiers) được giới thiệu từ bản MySQL 5.6, 
-- Là một mã định danh duy nhất khi một transsaction được commmited trên máy chủ gốc (hay còn gọi là Master). 
+- Là một mã định danh duy nhất khi một transaction được commmited trên máy chủ gốc (hay còn gọi là Master). 
 - Mã định danh này tồn tại duy nhất trên toàn bộ các máy chủ MySQL (Bao gồm Master và các slave). 
 - Giúp việc cấu hình Replicate đơn giản, dễ dàng; đảm bảo tính nhất quán và tin cậy.
 
