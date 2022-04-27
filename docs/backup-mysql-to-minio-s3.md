@@ -1,4 +1,4 @@
-# Backup MySQL lên Minio sử dụng xbstream và xbcloud
+# Sao lưu và phục hồi dữ liệu MySQL lên S3 Minio sử dụng xbstream và xbcloud
 
 ## 1. Chuẩn bị
 
