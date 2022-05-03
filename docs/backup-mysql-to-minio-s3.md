@@ -53,7 +53,7 @@ THREADS=10
 HOST=mysql1-2022-04-27
 mkdir -p /data/restore-mysql/$HOST
 
- xbcloud get -parallel=$THREADS s3://backupsx/$HOST  | xbstream -x -C --parallel=$THREADS /data/restore-mysql/$HOST
+ xbcloud get --parallel=$THREADS s3://backupsx/$HOST  | xbstream -x --parallel=$THREADS -C /data/restore-mysql/$HOST
 ```
 
 - Trong đó:
