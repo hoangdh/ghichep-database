@@ -26,3 +26,15 @@ Ví dụ: `cef98fa3-5396-4ee0-85bb-cb1413d1531b:2135`
 - Khi một transaction được thực thi trên Master, một GTID được sinh ra, gắn tương ứng vào transaction rồi được ghi vào Binlog.
 - Binglog được Slave láy về lưu vào relay-log; Slave đọc GITD và gán giá trị vào biến `GTID_NEXT` để biết được GTID tiếp theo sẽ thực thi. 
 - Tiến trình SQL thread trên Slave lấy giá trị GITD từ relay-log và so sánh với binlog. Nếu đã tồn tại, Slave sẽ bỏ qua. Nếu chưa, Slave sẽ thực thi và ghi chúng lại vào binlog của mình.
+
+### Ưu điểm:
+
+- Cấu hình nhanh
+- Rút ngắn thời gian thao tác chuyển đổi dự phòng (Failover)
+- Tối ưu hơn với binlog là ROW
+
+### Nhược điểm:
+
+- Khó trong việc xử lý khi lỗi xảy ra trên Slave (Không hỗ trợ slave_skip_counter, tuy nhiên có thao tác tương đương - bỏ qua transaction lỗi)
+- Không sử dụng được với MyISAM
+- Không hỗ trợ tạo bảng create table .. select; và bảng tạm (temporary)
